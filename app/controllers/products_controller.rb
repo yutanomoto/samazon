@@ -1,10 +1,13 @@
 class ProductsController < ApplicationController
+     before_action :set_product, only: [:show, :edit, :update, :destroy]
   def index
     @products = Product.all
   end
 
   def show
-    @product = Product.find(params[:id])
+    # レビューを表示する。
+    @reviews = @product.reviews
+    @review = @reviews.new
   end
 
   def new
@@ -13,35 +16,39 @@ class ProductsController < ApplicationController
   end
 
   def create
-   @product = Product.create(product_params)
+　  @product = Product.create(product_params)
  
   # データを保存する。
-　　@product.save
+　 @product.save
 　　# リダイレクト（別のページに移動すること）を行っています。createなどのアクションではビューを持たないので、この処理を書き忘れると
 　　# 真っ白な画面のままになってしまいます。
    redirect_to product_url  @product
   end
 
-  def edit
-     @product = Product.find(params[:id])
-      @categories = Category.all
-  end
+ def edit
+   
+ end
 
-  def update
-    @product = Product.find(params[:id])
+ def update
     @product.update(product_params)
    redirect_to product_url @product
-  end
+ end
 
-  def destroy
-    @product = Product.find(params[:id])
+ def destroy
+   byebug
     @product.destroy
     redirect_to products_url
+ end
+  
+  private
+   
+ def set_product
+   @product = Product.find(params[:id])
+ end
+  
+  def product_params
+   
+  params.require(:product).permit(:name, :description, :price, :category_id)
   end
   
-   private
-   def product_params
-   
-     params.require(:product).permit(:name, :description, :price, :category_id)
-   end
 end
