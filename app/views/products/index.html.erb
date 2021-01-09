@@ -2,11 +2,10 @@
   <div class="col-9">
     <div class="container mt-4">
       <div class="row w-100">
-
         <% @products.each do |product|%>
         <div class="col-3">
-          <%= link_to product_path(product) do %>
-            <%= image_tag "/images/dummy.png", class: "img-thumbnail"%>
+         <%= link_to product_path(product) do %>
+           <%= image_tag "/images/dummy.png", class: "img-thumbnail"%>
           <% end %>
           <div class="row">
             <div class="col-12">
@@ -21,5 +20,6 @@
 
       </div>
     </div>
+    <%= paginate @products %>
   </div>
 </div>

@@ -43,6 +43,13 @@ gem 'bootsnap', '>= 1.1.0', require: false
  
   # 環境変数を使用できる
  gem 'dotenv-rails'
+ 
+# ページネーションを実装できる
+gem 'kaminari'
+
+# それらしい値を自動生成できる
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+
 
 
 group :development, :test do
