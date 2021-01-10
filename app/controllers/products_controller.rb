@@ -1,14 +1,25 @@
 class ProductsController < ApplicationController
      before_action :set_product, only: [:show, :edit, :update, :destroy, :favorite]
+     
   def index
-    @products = Product.display_list(category_params, params[:page])
-    # カテゴリーの絞り込み機能を使えるようにする。
-    @category = Category.request_category(category_params)
+    if sort_params.present?
+     @category = Category.request_category(sort_params[:sort_category])
+     @products = Product.sort_products(sort_params, params[:page]) 
+    elsif params[:category].present?
+     @category = Category.request_category(params[:category])
+     @products = Product.category_products(@category, params[:page])
+    else
+     @products = Product.display_list(params[:page])
+    end
+    
+  end
+
     # カテゴリーを表示させる。
     @categories = Category.all
     #カテゴリーをサイドバーで表示できるようにする。
     @major_category_names = Category.major_categories
-  end
+    @sort_list = Product.sort_list
+
 
   def show
     # レビューを表示する。
@@ -46,8 +57,8 @@ class ProductsController < ApplicationController
  end
  
  def favorite
-    current_user.toggle_like!(product)
-    redirect_to product_url product
+   current_user.toggle_like!(@product)
+   redirect_to product_url @product
  end
 
   
@@ -57,14 +68,13 @@ class ProductsController < ApplicationController
    @product = Product.find(params[:id])
  end
   
-  def product_params
+ def product_params
    
   params.require(:product).permit(:name, :description, :price, :category_id)
-  end
+ end
   
-  def category_params
-  params[:category].present? ? params[:category]
-                             : "none"
-  end
-  
+ def sort_params
+     params.permit(:sort, :sort_category)
+ end
+ 
 end
