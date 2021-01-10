@@ -1,8 +1,13 @@
 class ProductsController < ApplicationController
      before_action :set_product, only: [:show, :edit, :update, :destroy]
-     PER = 15
   def index
-    @products = Product.page(params[:page]).per(PER)
+    @products = Product.display_list(category_params, params[:page])
+    # カテゴリーの絞り込み機能を使えるようにする。
+    @category = Category.request_category(category_params)
+    # カテゴリーを表示させる。
+    @categories = Category.all
+    #カテゴリーをサイドバーで表示できるようにする。
+    @major_category_names = Category.major_categories
   end
 
   def show
@@ -36,7 +41,6 @@ class ProductsController < ApplicationController
  end
 
  def destroy
-   byebug
     @product.destroy
     redirect_to products_url
  end
@@ -50,6 +54,11 @@ class ProductsController < ApplicationController
   def product_params
    
   params.require(:product).permit(:name, :description, :price, :category_id)
+  end
+  
+  def category_params
+  params[:category].present? ? params[:category]
+                             : "none"
   end
   
 end
