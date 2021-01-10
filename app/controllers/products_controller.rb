@@ -11,14 +11,14 @@ class ProductsController < ApplicationController
     else
      @products = Product.display_list(params[:page])
     end
-    
-  end
-
     # カテゴリーを表示させる。
     @categories = Category.all
     #カテゴリーをサイドバーで表示できるようにする。
     @major_category_names = Category.major_categories
     @sort_list = Product.sort_list
+  end
+
+    
 
 
   def show
