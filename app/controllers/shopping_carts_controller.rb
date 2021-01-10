@@ -34,6 +34,6 @@ private
    end
    
    def set_cart
-     @user_cart = ShoppingCart.set_user_cart(current_user)
+    @user_cart = ShoppingCart.set_user_cart(current_user)
    end
 end
