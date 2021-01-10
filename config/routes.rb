@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  
   devise_for :users, :controllers => {
     :registrations => 'users/registrations',
     :sessions => 'users/sessions',
@@ -9,7 +10,7 @@ Rails.application.routes.draw do
   }
 
   devise_scope :user do
-    root :to => "users/sessions#new"
+    root :to => "web#index"
     get "signup", :to => "users/registrations#new"
     get "verify", :to => "users/registrations#verify"
     get "login", :to => "users/sessions#new"
