@@ -34,6 +34,10 @@ class UsersController < ApplicationController
  
   def edit_password
   end
+# お気に入りに追加した商品を表示させる。
+  def favorite
+   @favorites = @user.likees(Product)
+  end
   
   private
   
