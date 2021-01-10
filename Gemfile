@@ -50,6 +50,8 @@ gem 'kaminari'
 # それらしい値を自動生成できる
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 
+# socialiizatioinを使用できる
+ gem 'socialization'
 
 
 group :development, :test do
