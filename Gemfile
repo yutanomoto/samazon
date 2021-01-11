@@ -82,5 +82,11 @@ group :test do
   gem 'chromedriver-helper'
 end
 
+ group :production do
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  # postgresql
+  gem 'pg'
+ end
+
 # Windows does not include zoneinfo files, so bundle the tzinfodata gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
